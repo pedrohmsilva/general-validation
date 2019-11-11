@@ -36,7 +36,7 @@ class CnpjTest extends TestCase
     /**
      * @covers GeneralValidation\Cnpj::validate
      */
-    public function testValidateWithoutPunctuationValid()
+    public function testValidateValid()
     {
         $value = '94972261000117';
         $expected = true;
@@ -50,21 +50,7 @@ class CnpjTest extends TestCase
     /**
      * @covers GeneralValidation\Cnpj::validate
      */
-    public function testValidateWithPunctuationValid()
-    {
-        $value = '94.972.261/0001-17';
-        $expected = true;
-
-        $Cnpj = new Cnpj();
-        $result = $Cnpj->validate($value);
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * @covers GeneralValidation\Cnpj::validate
-     */
-    public function testValidateWithoutPunctuationInvalid()
+    public function testValidateInvalid()
     {
         $value = '12345678901234';
         $expected = false;
@@ -76,15 +62,29 @@ class CnpjTest extends TestCase
     }
 
     /**
-     * @covers GeneralValidation\Cnpj::validate
+     * @covers GeneralValidation\Cnpj::extractAndValidate
      */
-    public function testValidateWithPunctuationInvalid()
+    public function testExtractAndValidateValid()
+    {
+        $value = '94.972.261/0001-17';
+        $expected = true;
+
+        $Cnpj = new Cnpj();
+        $result = $Cnpj->extractAndValidate($value);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @covers GeneralValidation\Cnpj::extractAndValidate
+     */
+    public function testExtractAndValidateInvalid()
     {
         $value = '12.345.678/9012-34';
         $expected = false;
 
         $Cnpj = new Cnpj();
-        $result = $Cnpj->validate($value);
+        $result = $Cnpj->extractAndValidate($value);
 
         $this->assertEquals($expected, $result);
     }

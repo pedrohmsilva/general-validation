@@ -29,14 +29,13 @@ class Cnpj
     }
 
     /**
-     * Extract (whether necessary) and validate CNPJ document.
+     * Validate CNPJ document.
      *
      * @param string $value
      * @return bool
      */
     public function validate(string $value): bool
     {
-        $value = $this->extract($value);
         $value = preg_replace('/[^0-9]/', '', $value);
         
         if (strlen($value) != 14) {
@@ -79,5 +78,18 @@ class Cnpj
         $rest = $sum % 11;
 
         return $value{13} == ($rest < 2 ? 0 : 11 - $rest);
+    }
+
+    /**
+     * Extract and validate CNPJ document.
+     *
+     * @param string $value
+     * @return bool
+     */
+    public function extractAndValidate(string $value): bool
+    {
+        $extracted = $this->extract($value);
+
+        return $this->validate($extracted);
     }
 }

@@ -36,7 +36,7 @@ class CpfTest extends TestCase
     /**
      * @covers GeneralValidation\Cpf::validate
      */
-    public function testValidateWithoutPunctuationValid()
+    public function testValidateValid()
     {
         $value = '05279995800';
         $expected = true;
@@ -50,21 +50,7 @@ class CpfTest extends TestCase
     /**
      * @covers GeneralValidation\Cpf::validate
      */
-    public function testValidateWithPunctuationValid()
-    {
-        $value = '052.799.958-00';
-        $expected = true;
-
-        $Cpf = new Cpf();
-        $result = $Cpf->validate($value);
-
-        $this->assertEquals($expected, $result);
-    }
-
-    /**
-     * @covers GeneralValidation\Cpf::validate
-     */
-    public function testValidateWithoutPunctuationInvalid()
+    public function testValidateInvalid()
     {
         $value = '12345678901';
         $expected = false;
@@ -76,15 +62,29 @@ class CpfTest extends TestCase
     }
 
     /**
-     * @covers GeneralValidation\Cpf::validate
+     * @covers GeneralValidation\Cpf::extractAndValidate
      */
-    public function testValidateWithPunctuationInvalid()
+    public function testExtractAndValidateValid()
+    {
+        $value = '052.799.958-00';
+        $expected = true;
+
+        $Cpf = new Cpf();
+        $result = $Cpf->extractAndValidate($value);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    /**
+     * @covers GeneralValidation\Cpf::extractAndValidate
+     */
+    public function testExtractAndValidateInvalid()
     {
         $value = '123.456.789-01';
         $expected = false;
 
         $Cpf = new Cpf();
-        $result = $Cpf->validate($value);
+        $result = $Cpf->extractAndValidate($value);
 
         $this->assertEquals($expected, $result);
     }

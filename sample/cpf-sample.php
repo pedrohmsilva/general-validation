@@ -12,13 +12,6 @@ $extracted = $Cpf->extract($value);
 echo "CPF: $value \n";
 echo "Extracted: $extracted \n\n";
 
-$value = '12345678901';
-$validated = $Cpf->validate($value);
-$result = $validated ? 'Valid' : 'Invalid';
-
-echo "CPF: $value \n";
-echo "Validation result: $result \n\n";
-
 $value = '05279995800';
 $validated = $Cpf->validate($value);
 $result = $validated ? 'Valid' : 'Invalid';
@@ -27,7 +20,7 @@ echo "CPF: $value \n";
 echo "Validation result: $result \n\n";
 
 $value = '052.799.958-00';
-$validated = $Cpf->validate($value);
+$validated = $Cpf->extractAndValidate($value);
 $result = $validated ? 'Valid' : 'Invalid';
 
 echo "CPF: $value \n";

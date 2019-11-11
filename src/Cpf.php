@@ -29,14 +29,13 @@ class Cpf
     }
 
     /**
-     * Extract (whether necessary) and validate CPF document.
+     * Validate CPF document.
      *
      * @param string $value
      * @return bool
      */
     public function validate(string $value): bool
     {
-        $value = $this->extract($value);
         $regex = preg_replace('/[^\d.-]/', '', $value);
 
         if ($value !== $regex) {
@@ -81,5 +80,18 @@ class Cpf
         $rest = $sum % 11;
 
         return $value{10} == ($rest < 2 ? 0 : 11 - $rest);
+    }
+
+    /**
+     * Extract and validate CPF document.
+     *
+     * @param string $value
+     * @return bool
+     */
+    public function extractAndValidate(string $value): bool
+    {
+        $extracted = $this->extract($value);
+
+        return $this->validate($extracted);
     }
 }
