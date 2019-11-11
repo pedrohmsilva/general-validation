@@ -10,7 +10,7 @@ class Phone
      * @param string $value
      * @return string
      */
-    public function extract(string $value)
+    public function extract(string $value): string
     {
         $value = str_replace(' ', '', $value);
         $value = str_replace('(', '', $value);
